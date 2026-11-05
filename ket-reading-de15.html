@@ -1,0 +1,1927 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0f766e">
+<title>KET Reading – Đề 15 – City living</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ── Tokens ─────────────────────────────────────────── */
+:root {
+  --primary:       #0f766e;
+  --primary-dark:  #115e59;
+  --primary-light: #ccfbf1;
+  --bg:            #f0fdfa;
+  --card-bg:       #ffffff;
+  --text:          #1e293b;
+  --text-muted:    #64748b;
+  --font:          'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --border:        #e2e8f0;
+  --shadow:        0 10px 25px -5px rgba(15,118,110,0.07);
+  --shadow-lg:     0 20px 25px -5px rgba(15,118,110,0.12);
+  --correct:       #10b981;
+  --incorrect:     #ef4444;
+  --transition:    all 0.25s cubic-bezier(0.4,0,0.2,1);
+  --radius-card:   20px;
+  --radius-btn:    12px;
+  --radius-pill:   9999px;
+}
+.dark-theme {
+  --bg:            #0f172a;
+  --card-bg:       #1e293b;
+  --text:          #f8fafc;
+  --text-muted:    #94a3b8;
+  --border:        #334155;
+  --primary-light: rgba(15,118,110,0.18);
+  --shadow:        0 10px 25px -5px rgba(0,0,0,0.35);
+}
+
+/* ── Reset ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+body {
+  font-family: var(--font);
+  background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+body.dark-theme { background: #0f172a; }
+
+/* bg blobs */
+.blob {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 0;
+}
+.blob-1 { width:320px; height:320px; background:#14b8a6; top:-80px; left:-80px; }
+.blob-2 { width:400px; height:400px; background:#0ea5e9; bottom:-120px; right:-80px; }
+
+/* ── App shell ───────────────────────────────────────── */
+.app {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+@media (min-width: 860px) {
+  .app {
+    flex-direction: row;
+    max-width: 1280px;
+    height: calc(100vh - 40px);
+    margin: 20px auto;
+    border-radius: 24px;
+    background: rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.6);
+    box-shadow: 0 30px 60px -12px rgba(15,118,110,0.15);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    overflow: hidden;
+  }
+  .dark-theme .app {
+    background: rgba(30,41,59,0.75);
+    border-color: rgba(255,255,255,0.05);
+    box-shadow: 0 30px 60px -12px rgba(0,0,0,0.5);
+  }
+}
+
+/* ── Sidebar ─────────────────────────────────────────── */
+.sidebar {
+  background: rgba(255,255,255,0.9);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  border-bottom: 1px solid rgba(20,184,166,0.12);
+}
+.dark-theme .sidebar {
+  background: rgba(15,23,42,0.9);
+  border-bottom-color: rgba(255,255,255,0.05);
+}
+@media (min-width: 860px) {
+  .sidebar {
+    width: 210px;
+    flex-shrink: 0;
+    padding: 20px 14px;
+    gap: 14px;
+    border-bottom: none;
+    border-right: 1px solid rgba(20,184,166,0.12);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(20,184,166,0.25) transparent;
+  }
+  .dark-theme .sidebar { border-right-color: rgba(255,255,255,0.05); }
+  .sidebar-logo { font-size: 1.15rem; }
+  .sidebar-sub  { font-size: 0.74rem; }
+  .part-btn { padding: 7px 9px; font-size: 0.7rem; gap: 4px; }
+}
+
+.sidebar-logo { font-size: 1.35rem; font-weight: 800; color: var(--primary); line-height: 1.2; }
+.sidebar-sub  { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; margin-top: 2px; }
+
+.sec-label {
+  font-size: 0.65rem; font-weight: 800;
+  color: var(--primary); letter-spacing: 0.06em;
+  text-transform: uppercase; margin-bottom: -6px;
+}
+
+/* part nav buttons */
+.parts-nav { display: flex; gap: 6px; flex-wrap: wrap; }
+@media (min-width: 860px) { .parts-nav { flex-direction: column; flex-wrap: nowrap; } }
+
+.part-btn {
+  flex: 1 1 auto;
+  padding: 9px 12px;
+  border: 1.5px solid var(--primary);
+  background: var(--card-bg);
+  color: var(--primary);
+  border-radius: var(--radius-btn);
+  font-size: 0.76rem; font-weight: 700;
+  cursor: pointer; transition: var(--transition);
+  text-align: left; font-family: var(--font);
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+}
+.part-btn:hover { background: var(--primary-light); transform: translateY(-1px); }
+.part-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+.part-btn .badge {
+  font-size: 0.7rem; font-weight: 700;
+  padding: 2px 6px; border-radius: 6px;
+  background: rgba(255,255,255,0.25);
+  white-space: nowrap;
+}
+.part-btn:not(.active) .badge { background: var(--primary-light); color: var(--primary); }
+
+/* ── Tổng điểm (chỉ hiện sau khi nộp bài & chấm đủ) ──── */
+.total-score-box {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: var(--radius-btn);
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.total-score-label { font-size: 0.78rem; font-weight: 700; color: #fff; }
+.total-score-value { font-size: 1rem; font-weight: 800; color: #fff; }
+
+/* ── Google Sheets Submit ────────────────────────────── */
+.gs-section { padding-top:4px; }
+.gs-hint { font-size:0.7rem; color:var(--text-muted); text-align:center; margin-top:6px; }
+.gs-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-btn);
+  font-family: var(--font);
+  font-size: 0.82rem;
+  background: var(--card-bg);
+  color: var(--text);
+  margin-top: 8px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.gs-input:focus { border-color: var(--primary); }
+.btn-gs {
+  width: 100%;
+  margin-top: 8px;
+  padding: 9px 12px;
+  background: #16a34a;
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-btn);
+  font-family: var(--font);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.btn-gs:hover { background: #15803d; transform: translateY(-1px); }
+.btn-gs:disabled { background: var(--text-muted); cursor: default; transform: none; }
+.gs-status { font-size: 0.75rem; text-align: center; margin-top: 5px; min-height: 16px; color: var(--primary); }
+.btn-print {
+  width: 100%;
+  margin-top: 8px;
+  padding: 9px 12px;
+  background: var(--card-bg);
+  color: var(--text);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-btn);
+  font-family: var(--font);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.btn-print:hover { background: var(--primary-light); border-color: var(--primary); }
+
+/* ── Print header (chỉ hiện khi in) ──────────────────── */
+.print-header { display: none; }
+
+.sidebar-footer {
+  margin-top: auto; padding-top: 12px;
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+.theme-btn {
+  background: none; border: 1px solid var(--border);
+  color: var(--text); width: 36px; height: 36px;
+  border-radius: 50%; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; transition: var(--transition);
+}
+.theme-btn:hover { background: var(--primary-light); border-color: var(--primary); }
+
+/* ── Main ────────────────────────────────────────────── */
+.main {
+  flex: 1; padding: 28px 24px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(20,184,166,0.2) transparent;
+}
+
+.panel { display: none; animation: fadeUp 0.35s ease forwards; }
+.panel.active { display: block; }
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(12px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+
+/* part header */
+.part-header { margin-bottom: 18px; }
+.part-title { font-size: 1.2rem; font-weight: 800; color: var(--primary); margin-bottom: 4px; }
+.part-instructions {
+  font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;
+  background: var(--primary-light); border-radius: 10px; padding: 10px 14px;
+}
+
+/* reading text box */
+.text-box {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px; padding: 18px 20px;
+  font-size: 1.005rem; line-height: 1.75;
+  color: var(--text); margin-bottom: 20px;
+  box-shadow: var(--shadow);
+  white-space: pre-wrap;
+}
+
+/* ── Split-pane reading layout (giống giao diện thi thật IELTS):
+   bài đọc bên trái, câu hỏi bên phải, mỗi bên cuộn riêng ────── */
+.split-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 4px;
+}
+.split-pane-label {
+  font-size: 0.72rem; font-weight: 800;
+  color: var(--primary); text-transform: uppercase;
+  letter-spacing: 0.05em; margin-bottom: 8px;
+  display: flex; align-items: center; gap: 6px;
+}
+@media (min-width: 900px) {
+  .split-pane {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 0;
+  }
+  .split-left {
+    flex: 1 1 62%;
+    max-width: 62%;
+    min-width: 0;
+    padding-right: 20px;
+  }
+  .split-right {
+    flex: 1 1 38%;
+    max-width: 38%;
+    min-width: 0;
+    padding-left: 20px;
+    border-left: 1.5px dashed var(--border);
+  }
+  .split-left .split-scroll,
+  .split-right .split-scroll {
+    max-height: 66vh;
+    overflow-y: auto;
+    padding-right: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(20,184,166,0.25) transparent;
+  }
+}
+
+/* ── Part 1: Signs ───────────────────────────────────── */
+.sign-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px; padding: 18px 20px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+.sign-num { font-size: 0.7rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+.sign-box {
+  border: 2px solid var(--border);
+  border-radius: 10px; padding: 12px 14px;
+  font-weight: 700; font-size: 1.075rem;
+  text-align: center; line-height: 1.4;
+  margin-bottom: 12px;
+  background: var(--bg); white-space: pre-wrap;
+}
+.sign-box.note-style {
+  font-weight: 400; font-style: italic;
+  text-align: left; font-size: 1.005rem;
+}
+.sign-box.msg-style {
+  text-align: left; font-weight: 400; font-size: 0.975rem; font-style: normal;
+}
+.sign-question {
+  font-size: 1.025rem; font-weight: 700;
+  color: var(--text); margin-bottom: 10px;
+}
+
+/* ── Options (A/B/C/D) ───────────────────────────────── */
+.options { display: flex; flex-direction: column; gap: 7px; }
+.opt-btn {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 14px; border-radius: 10px;
+  border: 1.5px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text); font-size: 0.985rem;
+  font-family: var(--font); cursor: pointer;
+  transition: var(--transition); text-align: left; line-height: 1.4;
+}
+.opt-btn:hover:not(:disabled) { background: var(--primary-light); border-color: var(--primary); }
+.opt-btn.selected { border-color: var(--primary); background: var(--primary-light); color: var(--primary-dark); font-weight: 600; }
+.opt-btn.correct  { border-color: var(--correct) !important; background: #d1fae5 !important; color: #065f46 !important; font-weight: 700; }
+.opt-btn.incorrect{ border-color: var(--incorrect) !important; background: #fee2e2 !important; color: #991b1b !important; }
+.opt-btn:disabled { cursor: default; }
+.opt-letter {
+  font-weight: 800; font-size: 0.8rem;
+  width: 22px; flex-shrink: 0;
+  color: var(--primary);
+  margin-top: 1px;
+}
+.opt-btn.correct .opt-letter  { color: #065f46; }
+.opt-btn.incorrect .opt-letter { color: #991b1b; }
+
+/* ── Part 2: Matching ────────────────────────────────── */
+.match-layout {
+  display: grid; gap: 18px;
+}
+@media (min-width: 700px) {
+  .match-layout { grid-template-columns: 1fr 1fr; align-items: start; }
+  .people-col, .films-col {
+    max-height: 66vh;
+    overflow-y: auto;
+    padding-right: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(20,184,166,0.25) transparent;
+  }
+}
+
+.people-col, .films-col { display: flex; flex-direction: column; gap: 10px; }
+
+.person-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px; padding: 14px 16px;
+  box-shadow: var(--shadow);
+}
+.person-num  { font-size: 0.68rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; }
+.person-name { font-size: 1rem; font-weight: 700; color: var(--text); margin: 2px 0 6px; }
+.person-desc { font-size: 0.945rem; color: var(--text-muted); line-height: 1.55; margin-bottom: 10px; }
+
+.match-select {
+  width: 100%; padding: 8px 10px;
+  border-radius: 9px; border: 1.5px solid var(--border);
+  background: var(--bg); color: var(--text);
+  font-family: var(--font); font-size: 0.955rem; font-weight: 600;
+  cursor: pointer; transition: var(--transition);
+  appearance: none; -webkit-appearance: none;
+}
+.match-select:focus { outline: 2px solid var(--primary); border-color: var(--primary); }
+.match-select.correct  { border-color: var(--correct); background: #d1fae5; color: #065f46; }
+.match-select.incorrect{ border-color: var(--incorrect); background: #fee2e2; color: #991b1b; }
+.match-select:disabled { cursor: default; }
+
+.film-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px; padding: 12px 14px;
+  box-shadow: var(--shadow);
+}
+.film-letter { font-size: 0.68rem; font-weight: 800; color: var(--primary); text-transform: uppercase; }
+.film-title  { font-size: 0.92rem; font-weight: 700; color: var(--text); margin: 2px 0 4px; font-style: italic; }
+.film-desc   { font-size: 0.925rem; color: var(--text-muted); line-height: 1.5; }
+
+/* ── Part 3: True/False ──────────────────────────────── */
+.tf-list { display: flex; flex-direction: column; gap: 10px; }
+.tf-item {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px; padding: 14px 16px;
+  box-shadow: var(--shadow);
+}
+.tf-num  { font-size: 0.68rem; font-weight: 800; color: var(--primary); text-transform: uppercase; margin-bottom: 5px; }
+.tf-stmt { font-size: 0.995rem; color: var(--text); line-height: 1.55; margin-bottom: 10px; }
+.tf-opts { display: flex; gap: 8px; }
+.tf-btn {
+  flex: 1; padding: 8px 10px;
+  border-radius: 9px; border: 1.5px solid var(--border);
+  background: var(--card-bg); color: var(--text);
+  font-size: 0.955rem; font-weight: 700;
+  font-family: var(--font); cursor: pointer; transition: var(--transition);
+}
+.tf-btn:hover:not(:disabled) { background: var(--primary-light); border-color: var(--primary); }
+.tf-btn.selected { border-color: var(--primary); background: var(--primary-light); color: var(--primary-dark); }
+.tf-btn.correct  { border-color: var(--correct) !important; background: #d1fae5 !important; color: #065f46 !important; }
+.tf-btn.incorrect{ border-color: var(--incorrect) !important; background: #fee2e2 !important; color: #991b1b !important; }
+.tf-btn:disabled { cursor: default; }
+
+/* ── Part 5: Cloze ───────────────────────────────────── */
+.cloze-text {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px; padding: 18px 20px;
+  font-size: 1.005rem; line-height: 1.75;
+  margin-bottom: 20px; box-shadow: var(--shadow);
+}
+.blank-select {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 7px; border: 1.5px solid var(--primary);
+  background: var(--primary-light); color: var(--primary-dark);
+  font-family: var(--font); font-size: 0.975rem; font-weight: 700;
+  cursor: pointer; transition: var(--transition);
+  appearance: none; -webkit-appearance: none;
+  min-width: 90px; text-align: center;
+}
+.blank-select:focus { outline: 2px solid var(--primary); }
+.blank-select.correct  { border-color: var(--correct); background: #d1fae5; color: #065f46; }
+.blank-select.incorrect{ border-color: var(--incorrect); background: #fee2e2; color: #991b1b; }
+.blank-select:disabled { cursor: default; }
+
+/* cloze questions table */
+.cloze-table { width: 100%; border-collapse: collapse; }
+.cloze-table th, .cloze-table td { padding: 7px 10px; text-align: left; font-size: 0.945rem; border-bottom: 1px solid var(--border); }
+.cloze-table th { background: var(--primary-light); color: var(--primary); font-weight: 800; border-radius: 0; }
+.cloze-table tr:last-child td { border-bottom: none; }
+.q-label { font-weight: 800; color: var(--primary); min-width: 30px; display: inline-block; }
+
+/* Part 5 đáp án dạng chip — tự xuống dòng (2 hoặc 4 dòng tuỳ bề rộng), không cuộn ngang */
+.cloze-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.cloze-opt-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 12px; border-radius: 9px;
+  border: 1.5px solid var(--border);
+  background: var(--card-bg); color: var(--text);
+  font-family: var(--font); font-size: 0.985rem;
+  cursor: pointer; transition: var(--transition);
+}
+.cloze-opt-btn:hover:not(:disabled) { background: var(--primary-light); border-color: var(--primary); }
+.cloze-opt-btn.selected { border-color: var(--primary); background: var(--primary-light); color: var(--primary-dark); font-weight: 600; }
+.cloze-opt-btn.correct  { border-color: var(--correct) !important; background: #d1fae5 !important; color: #065f46 !important; font-weight: 700; }
+.cloze-opt-btn.incorrect{ border-color: var(--incorrect) !important; background: #fee2e2 !important; color: #991b1b !important; }
+.cloze-opt-btn:disabled { cursor: default; }
+
+/* ── Submit & Result ─────────────────────────────────── */
+.submit-row {
+  display: flex; align-items: center; gap: 14px;
+  margin-top: 24px; flex-wrap: wrap;
+}
+.btn-submit {
+  padding: 11px 28px;
+  background: var(--primary); color: #fff;
+  border: none; border-radius: var(--radius-btn);
+  font-size: 0.9rem; font-weight: 700;
+  font-family: var(--font); cursor: pointer;
+  transition: var(--transition); box-shadow: 0 4px 12px rgba(15,118,110,0.25);
+}
+.btn-submit:hover { background: var(--primary-dark); transform: translateY(-1px); }
+.btn-submit:disabled { background: var(--text-muted); cursor: default; transform: none; box-shadow: none; }
+
+.btn-reset {
+  padding: 11px 18px;
+  background: var(--card-bg); color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
+  font-size: 0.85rem; font-weight: 600;
+  font-family: var(--font); cursor: pointer; transition: var(--transition);
+}
+.btn-reset:hover { background: var(--bg); }
+
+.part-score-badge {
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem; font-weight: 800;
+  display: none;
+}
+.part-score-badge.show { display: inline-block; }
+.part-score-badge.great { background: #d1fae5; color: #065f46; }
+.part-score-badge.ok    { background: #fef9c3; color: #854d0e; }
+.part-score-badge.poor  { background: #fee2e2; color: #991b1b; }
+
+/* explain box */
+.explain-box {
+  margin-top: 6px; padding: 8px 12px;
+  border-radius: 8px; font-size: 0.78rem;
+  background: #f1f5f9; color: var(--text-muted);
+  border-left: 3px solid var(--primary); line-height: 1.5;
+  display: none;
+}
+.explain-box.show { display: block; }
+.dark-theme .explain-box { background: #1e293b; }
+.explain-box.unanswered { border-left-color: #94a3b8; font-style: italic; color: #64748b; }
+.dark-theme .explain-box.unanswered { color: #94a3b8; }
+
+/* evidence highlight (Part 2/3/4 — bằng chứng trong bài đọc, chỉ hiện sau khi nộp bài) */
+mark.ev-highlight, mark.p2-evidence {
+  background: #fef08a; color: #713f12; padding: 1px 4px;
+  border-radius: 5px; font-weight: 700; box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.dark-theme mark.ev-highlight, .dark-theme mark.p2-evidence { background: #854d0e; color: #fef9c3; }
+mark.ev-highlight sup {
+  font-size: 0.68em; font-weight: 800; color: var(--primary-dark);
+  margin-left: 2px; background: rgba(255,255,255,0.6); padding: 0 3px;
+  border-radius: 4px;
+}
+.dark-theme mark.ev-highlight sup { color: #fff; background: rgba(0,0,0,0.35); }
+
+/* ── Utility ─────────────────────────────────────────── */
+.mt-12 { margin-top: 12px; }
+.mt-16 { margin-top: 16px; }
+.films-ref-title { font-size: 0.85rem; font-weight: 700; color: var(--text-muted); margin-bottom: 10px; padding-top: 14px; border-top: 1px solid var(--border); }
+
+/* ── Watermark footer ─────────────────────────────────── */
+.wm-footer{margin-top:28px;padding-top:12px;border-top:1px dashed var(--border);
+  text-align:center;font-size:.72rem;color:var(--text-muted);opacity:.6;}
+@media print{
+  .wm-footer{opacity:.8;}
+  body{background:#fff !important;}
+  .blob-1,.blob-2{display:none !important;}
+  .sidebar{display:none !important;}
+  .app{display:block !important;width:100% !important;max-width:100% !important;height:auto !important;margin:0 !important;border-radius:0 !important;background:#fff !important;border:none !important;box-shadow:none !important;backdrop-filter:none !important;}
+  .main{width:100% !important;max-width:100% !important;height:auto !important;overflow:visible !important;padding:0 !important;}
+  .panel{display:block !important;animation:none !important;opacity:1 !important;transform:none !important;page-break-after:always;}
+  .panel:last-child{page-break-after:auto;}
+  .btn-reset{display:none !important;}
+  .print-header{display:block !important;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--primary);}
+  .print-header h1{font-size:1.25rem;margin:0 0 4px;color:var(--primary);}
+  .print-header .print-meta{font-size:0.85rem;color:#333;}
+}
+
+/* ══ A2 Key for Schools bổ sung (a2ks) ═══════════════════════════ */
+.passage-title { font-weight: 800; font-size: 1.08rem; text-align: center; margin-bottom: 10px; color: var(--text); white-space: normal; }
+.sign-img-wrap { display: flex; justify-content: center; margin: 4px 0 14px; }
+.sign-img { max-width: min(340px, 100%); max-height: 360px; width: auto; height: auto; border-radius: 10px; background: #fff; padding: 6px; border: 1px solid var(--border); }
+.dark-theme .sign-img { filter: brightness(0.92); }
+.p1-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 1100px) { .p1-grid { grid-template-columns: 1fr 1fr; } }
+.p1-grid .sign-card { margin-bottom: 0; }
+.q-lead { font-weight: 700; color: var(--text); margin: 0 0 10px; font-size: 1rem; }
+/* Part 2 — 3 người */
+.person-block { display: flex; gap: 14px; align-items: flex-start; padding: 12px 0; white-space: normal; }
+.person-block + .person-block { border-top: 1px dashed var(--border); }
+.person-photo { width: 84px; flex-shrink: 0; border-radius: 10px; border: 1px solid var(--border); background: #fff; }
+.person-name-tag { font-weight: 800; color: var(--primary); margin-bottom: 4px; }
+.person-text { line-height: 1.7; }
+#p2-text, #p3-text { white-space: normal; }
+#p3-text p { margin: 0 0 12px; line-height: 1.75; }
+.abc-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.abc-row .cloze-opt-btn { min-width: 96px; }
+/* Part 5 — ô điền 1 từ */
+.gap-input {
+  display: inline-block; width: 120px; max-width: 50vw;
+  padding: 2px 8px; margin: 0 2px;
+  border-radius: 7px; border: 1.5px solid var(--primary);
+  background: var(--primary-light); color: var(--primary-dark);
+  font-family: var(--font); font-size: 0.975rem; font-weight: 700; text-align: center;
+}
+.gap-input:focus { outline: 2px solid var(--primary); }
+.gap-input.correct  { border-color: var(--correct); background: #d1fae5; color: #065f46; }
+.gap-input.incorrect{ border-color: var(--incorrect); background: #fee2e2; color: #991b1b; }
+.gap-input.example  { border-style: dashed; }
+.gap-input.wide { width: 100%; max-width: 100%; text-align: left; margin: 6px 0 0; }
+.gap-num { font-weight: 800; color: var(--primary); font-size: 0.85rem; }
+.example-card { border-style: dashed; opacity: 0.92; }
+.example-tag { display:inline-block; font-size:0.66rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em;
+  background: var(--primary-light); color: var(--primary-dark); border-radius: 6px; padding: 1px 7px; margin-left: 6px; }
+.email-head { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; padding-bottom: 10px; margin-bottom: 12px; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
+.email-head b { color: var(--text-muted); }
+/* Part 6–7 — Writing */
+.task-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 16px 20px; margin-bottom: 16px; box-shadow: var(--shadow); line-height: 1.7; }
+.task-card ul { margin: 6px 0 8px 0; padding-left: 22px; }
+.task-card .task-count { font-weight: 800; margin-top: 6px; }
+.task-pics { display: block; width: 100%; max-width: 760px; margin: 10px auto 4px; border-radius: 10px; background: #fff; border: 1px solid var(--border); }
+.write-area { width: 100%; min-height: 200px; padding: 14px 16px; border-radius: 12px; border: 1.5px solid var(--border);
+  background: var(--card-bg); color: var(--text); font-family: var(--font); font-size: 1rem; line-height: 1.65; resize: vertical; }
+.write-area:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-light); }
+.word-count { font-size: 0.85rem; font-weight: 700; color: var(--text-muted); margin: 6px 0 0; }
+.word-count.ok { color: var(--correct); }
+.sample-box { display: none; margin-top: 18px; }
+.sample-box.show { display: block; }
+.sample-card { background: var(--card-bg); border: 1px solid var(--border); border-left: 4px solid var(--primary); border-radius: 12px; padding: 14px 18px; margin-bottom: 14px; }
+.sample-label { font-weight: 800; color: var(--primary); margin-bottom: 6px; }
+.sample-text { white-space: pre-wrap; font-style: italic; line-height: 1.65; margin-bottom: 10px; }
+.sample-comment { font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 8px; }
+.marks-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.marks-row span { font-size: 0.78rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: var(--primary-light); color: var(--primary-dark); }
+.marks-row span.tot { background: var(--primary); color: #fff; }
+.passage-sub { font-style: italic; text-align: center; color: var(--text-muted); margin: -4px 0 12px; white-space: normal; }
+.box-sep { height: 0; border-top: 2px solid var(--border); margin: 18px 0 16px; }
+.read-box { border: 1.5px solid var(--border); border-radius: 12px; padding: 12px 16px; margin: 10px 0 12px; background: var(--primary-light); }
+.dark-theme .read-box { background: rgba(15,118,110,0.15); }
+.read-box p { margin: 0; }
+.write-note { font-size: 0.82rem; color: var(--text-muted); margin-top: 6px; }
+@media print { .write-area { min-height: 0; border: 1px solid #999; } .sample-box.show { break-inside: avoid; } }
+
+/* ══ Part 1 dạng văn bản (đề tự soạn) ══ */
+.nt { margin: 4px auto 14px; max-width: 420px; line-height: 1.6; font-size: 0.97rem; white-space: normal; }
+.nt p { margin: 0 0 4px; }
+.nt-notice { border: 2.5px solid var(--text); border-radius: 6px; padding: 12px 16px; text-align: center; background: var(--card-bg); }
+.nt-title { font-weight: 800; letter-spacing: .06em; margin-bottom: 6px; font-size: 1.02rem; }
+.nt-msg-from { font-size: .8rem; font-weight: 800; color: var(--text-muted); margin: 0 0 4px 6px; }
+.nt-bubble { background: var(--primary-light); color: var(--text); border-radius: 16px 16px 16px 4px; padding: 10px 14px; }
+.nt-email { border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; background: var(--card-bg); }
+.nt-email .email-head { font-size: .88rem; margin-bottom: 8px; padding-bottom: 6px; }
+.nt-note { background: #fef9c3; color: #1e293b; padding: 12px 16px; border-radius: 2px; box-shadow: 2px 3px 8px rgba(0,0,0,.12); transform: rotate(-0.6deg); font-style: italic; }
+.dark-theme .nt-note { background: #fde68a; }
+@media print { .nt-note { transform: none; box-shadow: none; border: 1px solid #ccc; } }
+</style>
+</head>
+<body>
+<script>
+(function(){ try { if(localStorage.getItem('theme')==='dark') document.body.classList.add('dark-theme'); } catch(e) {} })();
+</script>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+
+<div class="app">
+  <!-- ══ SIDEBAR ══ -->
+  <aside class="sidebar">
+    <div>
+      <div class="sidebar-logo">📘 KET Reading – Ôn tập</div>
+      <div class="sidebar-sub">Đề 15 — City living</div>
+    </div>
+
+    <div>
+      <p class="sec-label">Các phần</p>
+      <div class="parts-nav mt-12">
+        <button type="button" class="part-btn active" id="nav-p1" onclick="showPart(1)">
+          Part 1 <span class="badge" id="badge-p1">0/6</span>
+        </button>
+        <button type="button" class="part-btn" id="nav-p2" onclick="showPart(2)">
+          Part 2 <span class="badge" id="badge-p2">0/7</span>
+        </button>
+        <button type="button" class="part-btn" id="nav-p3" onclick="showPart(3)">
+          Part 3 <span class="badge" id="badge-p3">0/5</span>
+        </button>
+        <button type="button" class="part-btn" id="nav-p4" onclick="showPart(4)">
+          Part 4 <span class="badge" id="badge-p4">0/6</span>
+        </button>
+        <button type="button" class="part-btn" id="nav-p5" onclick="showPart(5)">
+          Part 5 <span class="badge" id="badge-p5">0/6</span>
+        </button>
+      </div>
+      <div class="total-score-box" id="total-score-box" style="display:none;">
+        <span class="total-score-label">Tổng điểm</span>
+        <span class="total-score-value" id="total-score-value">0/30</span>
+      </div>
+    </div>
+
+    <div class="gs-section" id="gs-section">
+      <p class="sec-label">Gửi kết quả cho GV</p>
+      <input type="text" class="gs-input" id="gs-name" placeholder="Nhập tên của bạn..." />
+      <button type="button" class="btn-gs" id="btn-gs" onclick="submitAll()">📝 Nộp bài</button>
+      <p class="gs-hint" id="gs-hint" style="display:none;"></p>
+      <p class="gs-status" id="gs-status"></p>
+      <button type="button" class="btn-print" id="btn-print" onclick="printResult()" style="display:none;">🖨️ In bài</button>
+    </div>
+
+    <div class="sidebar-footer">
+      <button type="button" class="theme-btn" id="theme-btn" onclick="toggleDark()">🌙</button>
+      <span style="font-size:0.72rem;color:var(--text-muted);">Powered by Suite</span>
+    </div>
+  </aside>
+
+  <!-- ══ MAIN ══ -->
+  <main class="main">
+    <div class="print-header" id="print-header"></div>
+
+    <!-- PART 1 — Thông báo / tin nhắn (văn bản) -->
+    <div class="panel active" id="panel-p1">
+      <div class="part-header">
+        <div class="part-title">PART 1 — Questions 1–6</div>
+        <div class="part-instructions">For each question, choose the correct answer.</div>
+      </div>
+      <div class="p1-grid" id="p1-questions"></div>
+      <div class="submit-row">
+        <button type="button" class="btn-reset"  onclick="resetPart(1)">↺ Làm lại</button>
+        <span class="part-score-badge" id="result-p1"></span>
+      </div>
+    </div>
+
+    <!-- PART 2 — 3 người × 7 câu -->
+    <div class="panel" id="panel-p2">
+      <div class="part-header">
+        <div class="part-title">PART 2 — Questions 7–13</div>
+        <div class="part-instructions">For each question, choose the correct answer.</div>
+      </div>
+      <div class="split-pane">
+        <div class="split-left">
+          <div class="split-pane-label">📄 Bài đọc — The best thing about where I live</div>
+          <div class="text-box split-scroll" id="p2-text"></div>
+        </div>
+        <div class="split-right">
+          <div class="split-pane-label">✏️ Câu hỏi 7–13</div>
+          <div class="split-scroll" id="p2-questions"></div>
+        </div>
+      </div>
+      <div class="submit-row">
+        <button type="button" class="btn-reset"  onclick="resetPart(2)">↺ Làm lại</button>
+        <span class="part-score-badge" id="result-p2"></span>
+      </div>
+    </div>
+
+    <!-- PART 3 — MC đọc hiểu -->
+    <div class="panel" id="panel-p3">
+      <div class="part-header">
+        <div class="part-title">PART 3 — Questions 14–18</div>
+        <div class="part-instructions">For each question, choose the correct answer.</div>
+      </div>
+      <div class="split-pane">
+        <div class="split-left">
+          <div class="split-pane-label">📄 Bài đọc — A teenage tour guide</div>
+          <div class="text-box split-scroll" id="p3-text"></div>
+        </div>
+        <div class="split-right">
+          <div class="split-pane-label">✏️ Câu hỏi 14–18</div>
+          <div class="split-scroll" id="p3-questions"></div>
+        </div>
+      </div>
+      <div class="submit-row">
+        <button type="button" class="btn-reset"  onclick="resetPart(3)">↺ Làm lại</button>
+        <span class="part-score-badge" id="result-p3"></span>
+      </div>
+    </div>
+
+    <!-- PART 4 — MC cloze -->
+    <div class="panel" id="panel-p4">
+      <div class="part-header">
+        <div class="part-title">PART 4 — Questions 19–24</div>
+        <div class="part-instructions">For each question, choose the correct answer.</div>
+      </div>
+      <div class="split-pane">
+        <div class="split-left">
+          <div class="split-pane-label">📄 Bài đọc (điền từ) — The London Underground</div>
+          <div class="cloze-text split-scroll" id="p4-text"></div>
+        </div>
+        <div class="split-right">
+          <div class="split-pane-label">✏️ Chọn đáp án 19–24</div>
+          <div class="split-scroll" id="p4-questions"></div>
+        </div>
+      </div>
+      <div class="submit-row">
+        <button type="button" class="btn-reset"  onclick="resetPart(4)">↺ Làm lại</button>
+        <span class="part-score-badge" id="result-p4"></span>
+      </div>
+    </div>
+
+    <!-- PART 5 — Open cloze -->
+    <div class="panel" id="panel-p5">
+      <div class="part-header">
+        <div class="part-title">PART 5 — Questions 25–30</div>
+        <div class="part-instructions">For each question, write the correct answer.<br>Write ONE word for each gap.</div>
+      </div>
+      <div class="split-pane">
+        <div class="split-left">
+          <div class="split-pane-label">📄 Bài đọc (điền 1 từ)</div>
+          <div class="cloze-text split-scroll" id="p5-text"></div>
+        </div>
+        <div class="split-right">
+          <div class="split-pane-label">✏️ Điền 1 từ vào chỗ trống 25–30</div>
+          <div class="split-scroll" id="p5-questions"></div>
+        </div>
+      </div>
+      <div class="submit-row">
+        <button type="button" class="btn-reset"  onclick="resetPart(5)">↺ Làm lại</button>
+        <span class="part-score-badge" id="result-p5"></span>
+      </div>
+    </div>
+
+    <div class="wm-footer">Đề ôn tập tự soạn theo format A2 Key for Schools (Reading Part 1–5) · © Ms. Thủy Tiên · 0388929741</div>
+
+  </main>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════
+   DATA — sinh từ ket-reading-de15.source.json (sửa JSON rồi build lại, không sửa tay ở đây)
+══════════════════════════════════════════════════════ */
+const DATA = {
+ "p1": {
+  "questions": [
+   {
+    "num": 1,
+    "notice": {
+     "kind": "notice",
+     "title": "CITY BIKES",
+     "lines": [
+      "Ride for free for the first 30 minutes.",
+      "After that, it costs £1 an hour.",
+      "Download our app to start."
+     ]
+    },
+    "question": null,
+    "opts": [
+     "You will not be able to hire a bike unless you have the app.",
+     "The bikes can be used for free for as long as you like.",
+     "Every ride costs £1, however long or short it is."
+    ],
+    "ans": 0,
+    "explain": "“Download our app to start” = phải có ứng dụng mới thuê được. B sai: chỉ miễn phí 30 phút đầu. C sai: 30 phút đầu không mất tiền."
+   },
+   {
+    "num": 2,
+    "notice": {
+     "kind": "message",
+     "title": "Oscar",
+     "lines": [
+      "Hi Dad, the bus is stuck in traffic because of the marathon in the city centre. I’ll be about 40 minutes late for dinner. Don’t wait for me! Oscar"
+     ]
+    },
+    "question": "Why has Oscar sent this message?",
+    "opts": [
+     "to ask Dad to come and collect him from the city centre",
+     "to tell Dad that something has delayed him",
+     "to say that he has decided to watch the marathon"
+    ],
+    "ans": 1,
+    "explain": "Xe buýt kẹt vì marathon → Oscar về muộn. A sai: không nhờ đón. C sai: Oscar chỉ bị kẹt xe."
+   },
+   {
+    "num": 3,
+    "notice": {
+     "kind": "notice",
+     "title": "MARKET SQUARE",
+     "lines": [
+      "Street food festival this weekend.",
+      "No cars in the square from 6 am Saturday until 10 pm Sunday."
+     ]
+    },
+    "question": null,
+    "opts": [
+     "The street food festival will only take place on Saturday.",
+     "Visitors to the festival can leave their cars in the square.",
+     "Vehicles will not be allowed into the square for two days."
+    ],
+    "ans": 2,
+    "explain": "Cấm xe từ sáng thứ Bảy đến tối Chủ nhật → hai ngày. A sai: cả cuối tuần. B ngược."
+   },
+   {
+    "num": 4,
+    "notice": {
+     "kind": "email",
+     "head": [
+      [
+       "To:",
+       "Maria"
+      ],
+      [
+       "From:",
+       "Josh"
+      ]
+     ],
+     "lines": [
+      "The new skate park by the river opens on Saturday! It’s much bigger than the old one, and there’s a café too. Shall we meet at the entrance at 10? Bring your helmet – you can’t go in without one."
+     ]
+    },
+    "question": null,
+    "opts": [
+     "Josh is planning to buy a helmet when they get to the skate park.",
+     "Maria won’t be allowed into the skate park if she forgets her helmet.",
+     "Both the old and the new skate parks have a café."
+    ],
+    "ans": 1,
+    "explain": "“you can’t go in without one” = quên mũ thì không được vào. C sai: chỉ công viên MỚI có café."
+   },
+   {
+    "num": 5,
+    "notice": {
+     "kind": "note",
+     "lines": [
+      "Lucy – I’ve gone to the post office in town. The car is at the garage, so I’m walking. Can you take Buddy for a walk when you get home?",
+      "Mum"
+     ]
+    },
+    "question": "What does Mum want Lucy to do?",
+    "opts": [
+     "take the dog out after she gets back",
+     "pick up the car from the garage",
+     "meet her at the post office in town"
+    ],
+    "ans": 0,
+    "explain": "“take Buddy for a walk when you get home” = dắt chó đi dạo khi về. B, C không được nhờ."
+   },
+   {
+    "num": 6,
+    "notice": {
+     "kind": "notice",
+     "title": "CITY ART GALLERY",
+     "lines": [
+      "Free guided tours every Saturday at 11 am.",
+      "Meet at the information desk.",
+      "Groups of more than 10 people must book."
+     ]
+    },
+    "question": null,
+    "opts": [
+     "Only large groups are allowed to go on the guided tours.",
+     "The tours start from the café in the gallery.",
+     "A family of four can join a tour without booking."
+    ],
+    "ans": 2,
+    "explain": "Chỉ nhóm TRÊN 10 người phải đặt trước → gia đình 4 người không cần. A sai. B sai: gặp ở quầy thông tin."
+   }
+  ]
+ },
+ "p2": {
+  "passage_title": "The best thing about where I live",
+  "names": [
+   "Hugo",
+   "Maisie",
+   "Yuki"
+  ],
+  "people": [
+   {
+    "name": "Hugo",
+    "text": "I live in a big city, and the best thing for me is the public transport. There are underground trains, trams and buses, so I can go anywhere without my parents driving me. I travel to school on my own by tram, which takes just ten minutes. At weekends, my friends and I often take the train to the beach, which is only half an hour away, and tickets are cheap for students. The only problem is that the trains are very crowded in the morning."
+   },
+   {
+    "name": "Maisie",
+    "text": "My town isn’t very big, but it’s really friendly: everyone knows everyone, and the shop owners always say hello when I walk past. There isn’t a cinema, so we have to go to the next town to see films, which is annoying. But we’ve got an amazing park with a lake where you can hire boats in summer. Every September there’s a festival with music and food from different countries. Last year I sang on the stage with my choir!"
+   },
+   {
+    "name": "Yuki",
+    "text": "I love the old part of my city, where the streets are narrow and some of the buildings are over 500 years old. Tourists come from all over the world to see them, so in summer it’s difficult to walk anywhere! I like going to the city museum, which is free for people who live here. I’m interested in history, and I’ve learned a lot there about how people lived in the past."
+   }
+  ],
+  "questions": [
+   {
+    "num": 7,
+    "text": "Who doesn’t need adults to take them places?",
+    "ans": 0,
+    "explain": "Hugo: đi đâu cũng được mà không cần bố mẹ chở.",
+    "evidence": [
+     "so I can go anywhere without my parents driving me"
+    ]
+   },
+   {
+    "num": 8,
+    "text": "Who has performed in front of people in their town?",
+    "ans": 1,
+    "explain": "Maisie: hát trên sân khấu với dàn hợp xướng.",
+    "evidence": [
+     "Last year I sang on the stage with my choir!"
+    ]
+   },
+   {
+    "num": 9,
+    "text": "Who gets something for nothing because of where they live?",
+    "ans": 2,
+    "explain": "Yuki: bảo tàng miễn phí cho người dân. Bẫy: Hugo chỉ nói vé RẺ cho học sinh.",
+    "evidence": [
+     "which is free for people who live here"
+    ]
+   },
+   {
+    "num": 10,
+    "text": "Who is unhappy that something is missing from their town?",
+    "ans": 1,
+    "explain": "Maisie: không có rạp phim, phải sang thị trấn khác, “which is annoying”.",
+    "evidence": [
+     "we have to go to the next town to see films"
+    ]
+   },
+   {
+    "num": 11,
+    "text": "Who complains about visitors at a certain time of year?",
+    "ans": 2,
+    "explain": "Yuki: khách du lịch đông, mùa hè khó đi lại. Bẫy: Hugo phàn nàn tàu đông, nhưng không phải vì du khách.",
+    "evidence": [
+     "in summer it’s difficult to walk anywhere!"
+    ]
+   },
+   {
+    "num": 12,
+    "text": "Who mentions an activity you can do on the water?",
+    "ans": 1,
+    "explain": "Maisie: thuê thuyền trên hồ. Bẫy: Hugo đi tàu ra biển, không nói hoạt động trên nước.",
+    "evidence": [
+     "where you can hire boats in summer"
+    ]
+   },
+   {
+    "num": 13,
+    "text": "Who says something gets too full at a certain time of day?",
+    "ans": 0,
+    "explain": "Hugo: tàu rất đông vào buổi sáng.",
+    "evidence": [
+     "the trains are very crowded in the morning"
+    ]
+   }
+  ]
+ },
+ "p3": {
+  "passage_title": "A teenage tour guide",
+  "paras": [
+   "Every Saturday morning, a small group of tourists waits outside the old cathedral in York, in the north of England. They are waiting for their guide – and they are often surprised when a 14-year-old girl arrives to meet them, wearing a bright yellow jacket so that everyone can see her.",
+   "Amelia Brooks has been giving free walking tours of her city for a year. ‘I’ve always loved history,’ she says. ‘When I was little, my grandad took me for walks around York and told me stories about the Romans and the Vikings who lived here. I wanted to share those stories with other people.’",
+   "Amelia’s first tour wasn’t easy. ‘Only two people came, and I was so nervous that I forgot the name of a street I walk down every day!’ she laughs. ‘But they were really kind, and they told their friends about me.’ Now she often has fifteen or twenty people on her tours, so she asks them to book on her website, which her older brother helped her to build.",
+   "The tour takes about an hour and a half. Amelia’s favourite stop is a narrow street called the Shambles, where butchers sold meat hundreds of years ago. ‘Tourists always take lots of photos there,’ she says. The tours are free, but some people give her a little money at the end. She gives all of it to a charity that looks after old buildings in the city. ‘I don’t do it for money,’ she explains. ‘I just want people to love York as much as I do.’"
+  ],
+  "questions": [
+   {
+    "num": 14,
+    "text": "Why are tourists often surprised when they meet Amelia?",
+    "opts": [
+     "They don’t expect their guide to be so young.",
+     "She is wearing unusual clothes.",
+     "The tour starts later than they expected."
+    ],
+    "ans": 0,
+    "explain": "“surprised when a 14-year-old girl arrives” = ngạc nhiên vì hướng dẫn viên quá trẻ. B: áo vàng chỉ để dễ thấy, không phải lý do ngạc nhiên.",
+    "evidence": [
+     "they are often surprised when a 14-year-old girl arrives to meet them"
+    ]
+   },
+   {
+    "num": 15,
+    "text": "Why did Amelia start giving tours?",
+    "opts": [
+     "Her grandad suggested it to her.",
+     "She wanted to pass on what she had learned about the past.",
+     "She wanted to earn some pocket money."
+    ],
+    "ans": 1,
+    "explain": "“I wanted to share those stories with other people.” A: ông chỉ kể chuyện. C ngược “I don’t do it for money”.",
+    "evidence": [
+     "I wanted to share those stories with other people."
+    ]
+   },
+   {
+    "num": 16,
+    "text": "What happened on Amelia’s first tour?",
+    "opts": [
+     "Nobody turned up.",
+     "The tourists were not very friendly.",
+     "She couldn’t remember something simple."
+    ],
+    "ans": 2,
+    "explain": "Quên tên con phố ngày nào cũng đi. A sai: có 2 người. B ngược.",
+    "evidence": [
+     "I forgot the name of a street I walk down every day!"
+    ]
+   },
+   {
+    "num": 17,
+    "text": "Why do people need to book now?",
+    "opts": [
+     "Her tours have become popular.",
+     "She now charges for the tours.",
+     "Her brother runs the tours with her."
+    ],
+    "ans": 0,
+    "explain": "Giờ mỗi tour 15–20 người nên phải đặt. C: anh trai chỉ giúp làm website.",
+    "evidence": [
+     "Now she often has fifteen or twenty people on her tours"
+    ]
+   },
+   {
+    "num": 18,
+    "text": "What does Amelia do with the money she is given?",
+    "opts": [
+     "She saves it for her studies.",
+     "She uses it to help protect the city.",
+     "She spends it on her website."
+    ],
+    "ans": 1,
+    "explain": "Góp hết cho quỹ bảo vệ các công trình cổ.",
+    "evidence": [
+     "She gives all of it to a charity that looks after old buildings in the city."
+    ]
+   }
+  ]
+ },
+ "p4": {
+  "passage_title": "The London Underground",
+  "segments": [
+   {
+    "type": "text",
+    "text": "The London Underground is the oldest underground railway in the world. It first"
+   },
+   {
+    "type": "blank",
+    "label": "19",
+    "qnum": 19
+   },
+   {
+    "type": "text",
+    "text": "passengers in 1863, and the first line was about six kilometres long. The trains were pulled by steam engines, so the tunnels were often full"
+   },
+   {
+    "type": "blank",
+    "label": "20",
+    "qnum": 20
+   },
+   {
+    "type": "text",
+    "text": "smoke. Even so, about 38,000 people travelled on it on the very first day.\n\nThe railway grew"
+   },
+   {
+    "type": "blank",
+    "label": "21",
+    "qnum": 21
+   },
+   {
+    "type": "text",
+    "text": ", and new lines were built across the city. In 1890, the first electric trains started to run, which made the journey much"
+   },
+   {
+    "type": "blank",
+    "label": "22",
+    "qnum": 22
+   },
+   {
+    "type": "text",
+    "text": "pleasant.\n\nLondoners call the Underground ‘the Tube’ because of the round shape of its tunnels. Today, it has more than 270 stations, and up to five million journeys are"
+   },
+   {
+    "type": "blank",
+    "label": "23",
+    "qnum": 23
+   },
+   {
+    "type": "text",
+    "text": "on it every day. Some stations are very deep – at Hampstead, passengers have to go 58 metres below the ground to"
+   },
+   {
+    "type": "blank",
+    "label": "24",
+    "qnum": 24
+   },
+   {
+    "type": "text",
+    "text": "the trains."
+   }
+  ],
+  "questions": [
+   {
+    "num": 19,
+    "opts": [
+     "drove",
+     "carried",
+     "brought"
+    ],
+    "ans": 1,
+    "explain": "carry passengers = chở hành khách. drive là lái (xe), không đi với passengers; brought cần nơi đến."
+   },
+   {
+    "num": 20,
+    "opts": [
+     "with",
+     "by",
+     "of"
+    ],
+    "ans": 2,
+    "explain": "full of sth = đầy cái gì — cụm cố định."
+   },
+   {
+    "num": 21,
+    "opts": [
+     "quickly",
+     "fastly",
+     "early"
+    ],
+    "ans": 0,
+    "explain": "grew quickly = phát triển nhanh. “fastly” không tồn tại (trạng từ là fast); early = sớm."
+   },
+   {
+    "num": 22,
+    "opts": [
+     "most",
+     "more",
+     "very"
+    ],
+    "ans": 1,
+    "explain": "much more pleasant = dễ chịu hơn nhiều (much + so sánh hơn)."
+   },
+   {
+    "num": 23,
+    "opts": [
+     "done",
+     "gone",
+     "made"
+    ],
+    "ans": 2,
+    "explain": "make a journey = thực hiện một chuyến đi → journeys are made (bị động)."
+   },
+   {
+    "num": 24,
+    "opts": [
+     "reach",
+     "arrive",
+     "get"
+    ],
+    "ans": 0,
+    "explain": "reach the trains = tới được chỗ tàu. arrive cần at; get cần to."
+   }
+  ]
+ },
+ "p5": {
+  "example": {
+   "label": "0",
+   "answer": "during"
+  },
+  "boxes": [
+   {
+    "head": [
+     [
+      "From:",
+      "Carla"
+     ],
+     [
+      "To:",
+      "Jess"
+     ]
+    ],
+    "segments": [
+     {
+      "type": "text",
+      "text": "I’m so happy you’re coming to stay with us"
+     },
+     {
+      "type": "blank",
+      "label": "0",
+      "qnum": 0
+     },
+     {
+      "type": "text",
+      "text": "the holidays! There’s so much to do in the city. On Saturday we could go to the science museum,"
+     },
+     {
+      "type": "blank",
+      "label": "25",
+      "qnum": 25
+     },
+     {
+      "type": "text",
+      "text": "is next to the river. In the evening, there’s a light show in the main square. My mum says it’s one"
+     },
+     {
+      "type": "blank",
+      "label": "26",
+      "qnum": 26
+     },
+     {
+      "type": "text",
+      "text": "the best things in the city! Is there anything special you’d like"
+     },
+     {
+      "type": "blank",
+      "label": "27",
+      "qnum": 27
+     },
+     {
+      "type": "text",
+      "text": "do?"
+     }
+    ]
+   },
+   {
+    "head": [
+     [
+      "From:",
+      "Jess"
+     ],
+     [
+      "To:",
+      "Carla"
+     ]
+    ],
+    "segments": [
+     {
+      "type": "text",
+      "text": "I can’t wait! I’d love to go shopping, because there aren’t many clothes shops"
+     },
+     {
+      "type": "blank",
+      "label": "28",
+      "qnum": 28
+     },
+     {
+      "type": "text",
+      "text": "my town. I’d also like to try the famous ice cream café you told me about. My train arrives"
+     },
+     {
+      "type": "blank",
+      "label": "29",
+      "qnum": 29
+     },
+     {
+      "type": "text",
+      "text": "4.15 on Friday. Can you meet me at the station? I’ll send you a message when I"
+     },
+     {
+      "type": "blank",
+      "label": "30",
+      "qnum": 30
+     },
+     {
+      "type": "text",
+      "text": "on the train."
+     }
+    ]
+   }
+  ],
+  "questions": [
+   {
+    "num": 25,
+    "ans": "which",
+    "accept": [
+     "which"
+    ],
+    "explain": "Mệnh đề quan hệ không xác định cho vật: the science museum, which is next to the river."
+   },
+   {
+    "num": 26,
+    "ans": "of",
+    "accept": [
+     "of"
+    ],
+    "explain": "one of the best things = một trong những điều tuyệt nhất."
+   },
+   {
+    "num": 27,
+    "ans": "to",
+    "accept": [
+     "to"
+    ],
+    "explain": "would like to do sth = muốn làm gì."
+   },
+   {
+    "num": 28,
+    "ans": "in",
+    "accept": [
+     "in"
+    ],
+    "explain": "in my town = ở thị trấn của mình."
+   },
+   {
+    "num": 29,
+    "ans": "at",
+    "accept": [
+     "at"
+    ],
+    "explain": "at + giờ: at 4.15."
+   },
+   {
+    "num": 30,
+    "ans": "get / am",
+    "accept": [
+     "get",
+     "am",
+     "’m",
+     "'m",
+     "m"
+    ],
+    "explain": "when I get on the train = khi mình lên tàu (hoặc when I am on the train)."
+   }
+  ]
+ }
+};
+const IMG = 'img/test01/reading/';
+
+const PARTS_LIST = [1,2,3,4,5];
+const SCORED = [1,2,3,4,5];            // Part 6–7 là Writing — không chấm tự động
+const MAXES = { p1: 6, p2: 7, p3: 5, p4: 6, p5: 6 };
+const TOTAL_MAX = 30;
+const MIN_WORDS = { p6: 25, p7: 35 };
+
+/* ══════════════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════════════ */
+const state = {};
+function freshState(){ return { selections: {}, submitted: false, score: null }; }
+PARTS_LIST.forEach(p => state['p'+p] = freshState());
+
+/* ══════════════════════════════════════════════════════
+   HELPERS
+══════════════════════════════════════════════════════ */
+function escapeHtml(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+const L = i => String.fromCharCode(65 + i);
+function norm(s) {
+  return String(s || '').toLowerCase().replace(/[‘’ʼ`]/g, "'").replace(/[.,!?;:"]/g, ' ').replace(/\s+/g, ' ').trim();
+}
+function segText(t) {   // thêm khoảng trắng quanh chỗ trống, trừ khi đoạn sau bắt đầu bằng dấu câu
+  return (/^[,.;:!?’)]/.test(t) ? '' : ' ') + escapeHtml(t).replace(/\n/g, '<br>') + ' ';
+}
+function isAccepted(val, accept) { const v = norm(val); return accept.some(a => norm(a) === v); }
+function countWords(s) { const m = String(s || '').trim().match(/[A-Za-zÀ-ỹ0-9’'£$€-]+/g); return m ? m.length : 0; }
+
+// Tô sáng cụm bằng chứng (kèm số câu) trong 1 đoạn văn thô
+function markText(raw, marks) {
+  const found = [];
+  (marks || []).forEach(m => { const i = raw.indexOf(m.text); if (i !== -1) found.push({ start: i, text: m.text, num: m.num }); });
+  found.sort((a, b) => a.start - b.start);
+  let html = '', pos = 0;
+  found.forEach(m => {
+    if (m.start < pos) return;
+    html += escapeHtml(raw.slice(pos, m.start));
+    html += `<mark class="ev-highlight" title="Câu ${m.num}">${escapeHtml(m.text)}<sup>${m.num}</sup></mark>`;
+    pos = m.start + m.text.length;
+  });
+  return html + escapeHtml(raw.slice(pos));
+}
+
+/* ══════════════════════════════════════════════════════
+   RENDER
+══════════════════════════════════════════════════════ */
+function renderAll() { PARTS_LIST.forEach(p => window['renderPart' + p]()); }
+
+/* PART 1 — thông báo / tin nhắn / email / ghi chú (văn bản) */
+function noticeHtml(nt) {
+  const body = (nt.lines || []).map(l => `<p>${escapeHtml(l)}</p>`).join('');
+  if (nt.kind === 'message') return `<div class="nt nt-msg"><div class="nt-msg-from">💬 ${escapeHtml(nt.title || 'Message')}</div><div class="nt-bubble">${body}</div></div>`;
+  if (nt.kind === 'email') return `<div class="nt nt-email"><div class="email-head">${(nt.head || []).map(h => `<b>${escapeHtml(h[0])}</b><span>${escapeHtml(h[1])}</span>`).join('')}</div>${body}</div>`;
+  if (nt.kind === 'note') return `<div class="nt nt-note">${body}</div>`;
+  return `<div class="nt nt-notice">${nt.title ? `<div class="nt-title">${escapeHtml(nt.title)}</div>` : ''}${body}</div>`;
+}
+function renderPart1() {
+  document.getElementById('p1-questions').innerHTML = DATA.p1.questions.map(q => `
+    <div class="sign-card">
+      <div class="sign-num">Question ${q.num}</div>
+      ${noticeHtml(q.notice)}
+      ${q.question ? `<div class="q-lead">${escapeHtml(q.question)}</div>` : ''}
+      <div class="options">
+        ${q.opts.map((o,i) => `
+          <button type="button" class="opt-btn" id="p1-q${q.num}-opt${i}" onclick="selectP1(${q.num},${i})">
+            <span class="opt-letter">${L(i)}</span><span>${escapeHtml(o)}</span>
+          </button>`).join('')}
+      </div>
+      <div class="explain-box" id="p1-explain-${q.num}"></div>
+    </div>`).join('');
+}
+function selectP1(qnum, idx) {
+  state.p1.selections[qnum] = idx;
+  DATA.p1.questions.find(x => x.num === qnum).opts.forEach((_,i) =>
+    document.getElementById(`p1-q${qnum}-opt${i}`).classList.toggle('selected', i === idx));
+}
+
+/* PART 2 — 3 người, 7 câu chọn A/B/C */
+function passageHead(P) {
+  return `<div class="passage-title">${escapeHtml(P.passage_title)}</div>` +
+    (P.passage_sub ? `<div class="passage-sub">${escapeHtml(P.passage_sub)}</div>` : '');
+}
+function p2PeopleHtml(marksByName) {
+  return passageHead(DATA.p2) + DATA.p2.people.map(p => `
+    <div class="person-block">
+            <div>
+        <div class="person-name-tag">${escapeHtml(p.name)}</div>
+        <div class="person-text">${markText(p.text, (marksByName || {})[p.name])}</div>
+      </div>
+    </div>`).join('');
+}
+function renderPart2() {
+  document.getElementById('p2-text').innerHTML = p2PeopleHtml();
+  const N = DATA.p2.names;
+  document.getElementById('p2-questions').innerHTML = DATA.p2.questions.map(q => `
+    <div class="sign-card">
+      <div class="sign-num">Question ${q.num}</div>
+      <div class="sign-question">${escapeHtml(q.text)}</div>
+      <div class="abc-row">
+        ${N.map((nm,i) => `<button type="button" class="cloze-opt-btn" id="p2-q${q.num}-opt${i}" onclick="selectP2(${q.num},${i})">
+          <span class="opt-letter">${L(i)}</span><span>${escapeHtml(nm)}</span></button>`).join('')}
+      </div>
+      <div class="explain-box mt-12" id="p2-explain-${q.num}"></div>
+    </div>`).join('');
+}
+function selectP2(qnum, idx) {
+  state.p2.selections[qnum] = idx;
+  DATA.p2.names.forEach((_,i) => document.getElementById(`p2-q${qnum}-opt${i}`).classList.toggle('selected', i === idx));
+}
+
+/* PART 3 — MC đọc hiểu */
+function p3TextHtml(marks) {
+  return passageHead(DATA.p3) +
+    DATA.p3.paras.map(t => `<p>${markText(t, marks)}</p>`).join('');
+}
+function renderPart3() {
+  document.getElementById('p3-text').innerHTML = p3TextHtml();
+  document.getElementById('p3-questions').innerHTML = DATA.p3.questions.map(q => `
+    <div class="sign-card" style="margin-bottom:12px;">
+      <div class="sign-num">Question ${q.num}</div>
+      <div class="sign-question">${escapeHtml(q.text)}</div>
+      <div class="options">
+        ${q.opts.map((o,i) => `
+          <button type="button" class="opt-btn" id="p3-q${q.num}-opt${i}" onclick="selectP3(${q.num},${i})">
+            <span class="opt-letter">${L(i)}</span><span>${escapeHtml(o)}</span>
+          </button>`).join('')}
+      </div>
+      <div class="explain-box" id="p3-explain-${q.num}"></div>
+    </div>`).join('');
+}
+function selectP3(qnum, idx) {
+  state.p3.selections[qnum] = idx;
+  DATA.p3.questions.find(x => x.num === qnum).opts.forEach((_,i) =>
+    document.getElementById(`p3-q${qnum}-opt${i}`).classList.toggle('selected', i === idx));
+}
+
+/* PART 4 — MC cloze (select trong bài ↔ chip bên phải, đồng bộ 2 chiều) */
+function renderPart4() {
+  const P = DATA.p4;
+  let html = passageHead(P);
+  if (P.passage_img) html += `<div class="sign-img-wrap"><img class="sign-img" src="${IMG}${P.passage_img}.png" alt=""></div>`;
+  P.segments.forEach(seg => {
+    if (seg.type === 'text') { html += segText(seg.text); return; }
+    const q = P.questions.find(x => x.num === seg.qnum);
+    html += `<select class="blank-select" id="p4-blank-${q.num}" onchange="selectP4(${q.num}, this.value)">
+      <option value="">(${seg.label})</option>
+      ${q.opts.map((o,i) => `<option value="${i}">${L(i)} ${escapeHtml(o)}</option>`).join('')}
+    </select>`;
+  });
+  document.getElementById('p4-text').innerHTML = html;
+  document.getElementById('p4-questions').innerHTML = P.questions.map(q => `
+    <div class="sign-card">
+      <div class="sign-num">Question ${q.num}</div>
+      <div class="cloze-opts">
+        ${q.opts.map((o,i) => `
+          <button type="button" class="cloze-opt-btn" id="p4-q${q.num}-opt${i}" onclick="selectP4(${q.num},${i})">
+            <span class="opt-letter">${L(i)}</span><span>${escapeHtml(o)}</span>
+          </button>`).join('')}
+      </div>
+      <div class="explain-box mt-12" id="p4-explain-${q.num}"></div>
+    </div>`).join('');
+}
+function selectP4(qnum, val) {
+  if (val === '' || val === null) { delete state.p4.selections[qnum]; return; }
+  const idx = parseInt(val);
+  state.p4.selections[qnum] = idx;
+  DATA.p4.questions.find(x => x.num === qnum).opts.forEach((_,i) =>
+    document.getElementById(`p4-q${qnum}-opt${i}`).classList.toggle('selected', i === idx));
+  const sel = document.getElementById(`p4-blank-${qnum}`); if (sel) sel.value = idx;
+}
+
+/* PART 5 — Open cloze (ô trong bài ↔ ô trong thẻ bên phải) */
+function renderPart5() {
+  const P = DATA.p5;
+  let html = '';
+  P.boxes.forEach((box, bi) => {
+    if (bi > 0) html += '<div class="box-sep"></div>';
+    if (box.head && box.head.length) html += `<div class="email-head">${box.head.map(h => `<b>${escapeHtml(h[0])}</b><span>${escapeHtml(h[1])}</span>`).join('')}</div>`;
+    box.segments.forEach(seg => {
+      if (seg.type === 'text') { html += segText(seg.text); return; }
+      if (seg.qnum === 0) {
+        html += `<span class="gap-num">(0)</span> <input class="gap-input correct example" value="${escapeHtml(P.example.answer)}" disabled>`;
+        return;
+      }
+      html += `<span class="gap-num">(${seg.label})</span> <input class="gap-input" id="p5-gap-${seg.qnum}" autocomplete="off" spellcheck="false" oninput="typeP5(${seg.qnum}, this.value, 'gap')">`;
+    });
+  });
+  document.getElementById('p5-text').innerHTML = html;
+  document.getElementById('p5-questions').innerHTML = `
+    <div class="sign-card example-card">
+      <div class="sign-num">Example 0 <span class="example-tag">Ví dụ</span></div>
+      <input class="gap-input wide correct example" value="${escapeHtml(P.example.answer)}" disabled>
+    </div>` + P.questions.map(q => `
+    <div class="sign-card">
+      <div class="sign-num">Question ${q.num}</div>
+      <input class="gap-input wide" id="p5-card-${q.num}" autocomplete="off" spellcheck="false" placeholder="Nhập 1 từ…" oninput="typeP5(${q.num}, this.value, 'card')">
+      <div class="explain-box mt-12" id="p5-explain-${q.num}"></div>
+    </div>`).join('');
+}
+function typeP5(qnum, val, from) {
+  if (val.trim() === '') delete state.p5.selections[qnum]; else state.p5.selections[qnum] = val;
+  const other = document.getElementById(from === 'gap' ? `p5-card-${qnum}` : `p5-gap-${qnum}`);
+  if (other && other.value !== val) other.value = val;
+}
+
+/* PART 6–7 — Writing */
+function samplesHtml(P) {
+  return `<div class="split-pane-label">📌 Bài mẫu &amp; nhận xét (Cambridge answer key)</div>` + P.samples.map(s => `
+    <div class="sample-card">
+      <div class="sample-label">${escapeHtml(s.label)}</div>
+      <div class="sample-text">${escapeHtml(s.text)}</div>
+      <div class="sample-comment">${escapeHtml(s.commentary)}</div>
+      <div class="marks-row">${s.marks.map(m => `<span class="${m[0] === 'Total' ? 'tot' : ''}">${escapeHtml(m[0])}: ${escapeHtml(m[1])}</span>`).join('')}</div>
+    </div>`).join('');
+}
+function renderWriting(n) {
+  const P = DATA['p' + n];
+  let task = P.lines.map(l => `<div>${escapeHtml(l)}</div>`).join('');
+  if (P.lead) task += `<div class="mt-12">${escapeHtml(P.lead)}</div>`;
+  if (P.bullets) task += `<ul>${P.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join('')}</ul>`;
+  if (P.read_box) {
+    const rb = P.read_box;
+    task += `<div class="read-box">` +
+      ((rb.head || []).length ? `<div class="email-head">${rb.head.map(h => `<b>${escapeHtml(h[0])}</b><span>${escapeHtml(h[1])}</span>`).join('')}</div>` : '') +
+      rb.paras.map(t => `<p>${escapeHtml(t)}</p>`).join('') + `</div>`;
+  }
+  if (P.lines_after) task += P.lines_after.map(l => `<div>${escapeHtml(l)}</div>`).join('');
+  if (P.img) task += `<img class="task-pics" src="${IMG}${P.img}.png" alt="Pictures">`;
+  task += `<div class="task-count">${escapeHtml(P.count)}</div>`;
+  document.getElementById(`p${n}-task`).innerHTML = `
+    <div class="task-card">${task}</div>
+    <textarea class="write-area" id="p${n}-write" spellcheck="false" placeholder="Viết bài của bạn ở đây…" oninput="typeWriting(${n}, this.value)"></textarea>
+    <div class="word-count" id="p${n}-wc">0 từ (tối thiểu ${MIN_WORDS['p'+n]})</div>
+    <div class="sample-box" id="p${n}-samples"></div>`;
+}
+function renderPart6() { renderWriting(6); }
+function renderPart7() { renderWriting(7); }
+function typeWriting(n, val) {
+  const key = 'p' + n;
+  if (val.trim() === '') delete state[key].selections.text; else state[key].selections.text = val;
+  const wc = countWords(val), min = MIN_WORDS[key];
+  const el = document.getElementById(`p${n}-wc`);
+  el.textContent = `${wc} từ (tối thiểu ${min})`;
+  el.classList.toggle('ok', wc >= min);
+  document.getElementById(`badge-p${n}`).textContent = wc ? `${wc} từ` : '✍️';
+}
+
+/* ══════════════════════════════════════════════════════
+   CHẤM ĐIỂM (thuần — không đụng DOM)
+══════════════════════════════════════════════════════ */
+function computePartScore(part) {
+  let score = 0, total = 0;
+  const sel = state['p' + part].selections;
+  if (part === 1 || part === 3 || part === 4) DATA['p'+part].questions.forEach(q => { total++; if (sel[q.num] === q.ans) score++; });
+  else if (part === 2) DATA.p2.questions.forEach(q => { total++; if (sel[q.num] === q.ans) score++; });
+  else if (part === 5) DATA.p5.questions.forEach(q => { total++; if (sel[q.num] !== undefined && isAccepted(sel[q.num], q.accept)) score++; });
+  return { score, total };
+}
+
+function showExplain(el, html) { el.innerHTML = html; el.classList.remove('unanswered'); el.classList.add('show'); }
+function showUnanswered(el) { el.innerHTML = 'Chưa làm câu này.'; el.classList.add('show', 'unanswered'); }
+
+function markOptButtons(prefix, qnum, n, ans, chosen) {
+  for (let i = 0; i < n; i++) {
+    const b = document.getElementById(`${prefix}-q${qnum}-opt${i}`);
+    b.disabled = true; b.classList.remove('selected');
+    if (i === ans) b.classList.add('correct'); else if (chosen === i) b.classList.add('incorrect');
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   SUBMIT (chỉ gọi SAU KHI gửi điểm thành công — xem submitAll)
+══════════════════════════════════════════════════════ */
+function submitPart(part) {
+  const key = 'p' + part;
+  const sel = state[key].selections;
+  state[key].submitted = true;
+
+  if (part === 1 || part === 3) {
+    const ev = [];
+    DATA[key].questions.forEach(q => {
+      const expl = document.getElementById(`${key}-explain-${q.num}`);
+      if (sel[q.num] === undefined) { showUnanswered(expl); return; }
+      markOptButtons(key, q.num, q.opts.length, q.ans, sel[q.num]);
+      showExplain(expl, `<strong>Đáp án: ${L(q.ans)}</strong> — ${q.explain}`);
+      (q.evidence || []).forEach(t => ev.push({ text: t, num: q.num }));
+    });
+    if (part === 3) document.getElementById('p3-text').innerHTML = p3TextHtml(ev);
+  }
+  else if (part === 2) {
+    const byName = {};
+    DATA.p2.questions.forEach(q => {
+      const expl = document.getElementById(`p2-explain-${q.num}`);
+      if (sel[q.num] === undefined) { showUnanswered(expl); return; }
+      markOptButtons('p2', q.num, DATA.p2.names.length, q.ans, sel[q.num]);
+      const who = DATA.p2.names[q.ans];
+      showExplain(expl, `<strong>Đáp án: ${L(q.ans)} (${escapeHtml(who)})</strong> — ${q.explain}`);
+      (q.evidence || []).forEach(t => (byName[who] = byName[who] || []).push({ text: t, num: q.num }));
+    });
+    document.getElementById('p2-text').innerHTML = p2PeopleHtml(byName);
+  }
+  else if (part === 4) {
+    DATA.p4.questions.forEach(q => {
+      const expl = document.getElementById(`p4-explain-${q.num}`);
+      if (sel[q.num] === undefined) { showUnanswered(expl); return; }
+      markOptButtons('p4', q.num, q.opts.length, q.ans, sel[q.num]);
+      const bs = document.getElementById(`p4-blank-${q.num}`);
+      bs.disabled = true; bs.classList.add(sel[q.num] === q.ans ? 'correct' : 'incorrect');
+      showExplain(expl, `<strong>Đáp án: ${L(q.ans)} ${escapeHtml(q.opts[q.ans])}</strong> — ${q.explain}`);
+    });
+  }
+  else if (part === 5) {
+    DATA.p5.questions.forEach(q => {
+      const expl = document.getElementById(`p5-explain-${q.num}`);
+      if (sel[q.num] === undefined) { showUnanswered(expl); return; }
+      const ok = isAccepted(sel[q.num], q.accept);
+      [`p5-gap-${q.num}`, `p5-card-${q.num}`].forEach(id => {
+        const el = document.getElementById(id); el.disabled = true; el.classList.add(ok ? 'correct' : 'incorrect');
+      });
+      showExplain(expl, `<strong>Đáp án: ${escapeHtml(q.ans)}</strong> — ${q.explain}`);
+    });
+  }
+  else if (part === 6 || part === 7) {
+    const box = document.getElementById(`${key}-samples`);
+    box.innerHTML = samplesHtml(DATA[key]);
+    box.classList.add('show');
+    const wc = countWords(sel.text || '');
+    const badge = document.getElementById(`result-${key}`);
+    badge.textContent = wc ? `Bài của bạn: ${wc} từ` : 'Chưa viết bài';
+    badge.className = 'part-score-badge show ' + (wc >= MIN_WORDS[key] ? 'great' : wc ? 'ok' : 'poor');
+    return;
+  }
+
+  const r = computePartScore(part);
+  state[key].score = r.score;
+  showPartScore(part, r.score, r.total);
+  updateSidebar();
+}
+
+function showPartScore(part, score, total) {
+  const badge = document.getElementById(`result-p${part}`);
+  const pct = score / total;
+  badge.textContent = `${score}/${total} điểm`;
+  badge.className = 'part-score-badge show ' + (pct >= 0.8 ? 'great' : pct >= 0.5 ? 'ok' : 'poor');
+}
+
+/* ══════════════════════════════════════════════════════
+   RESET
+══════════════════════════════════════════════════════ */
+function resetPart(part) {
+  state['p' + part] = freshState();
+  document.getElementById(`result-p${part}`).className = 'part-score-badge';
+  window['renderPart' + part]();
+  if (part >= 6) document.getElementById(`badge-p${part}`).textContent = '✍️';
+  updateSidebar();
+}
+
+/* ══════════════════════════════════════════════════════
+   SIDEBAR UPDATE
+══════════════════════════════════════════════════════ */
+function updateSidebar() {
+  let totalScore = 0, submitted = 0;
+  SCORED.forEach(p => {
+    const key = 'p' + p, max = MAXES[key], sc = state[key].score;
+    const badge = document.getElementById(`badge-p${p}`);
+    if (sc !== null) { badge.textContent = `${sc}/${max}`; totalScore += sc; submitted++; }
+    else badge.textContent = `0/${max}`;
+  });
+  const gsBtn = document.getElementById('btn-gs');
+  const gsHint = document.getElementById('gs-hint');
+  const totalBox = document.getElementById('total-score-box');
+  const totalVal = document.getElementById('total-score-value');
+  gsBtn.disabled = false;
+  if (submitted === SCORED.length) {
+    totalVal.textContent = `${totalScore}/${TOTAL_MAX}`;
+    totalBox.style.display = 'flex';
+    const answeredCount = SCORED.reduce((acc, p) => acc + Object.keys(state['p'+p].selections).length, 0);
+    if (answeredCount < TOTAL_MAX) {
+      gsHint.style.display = 'block';
+      gsHint.textContent = `Còn ${TOTAL_MAX - answeredCount} câu chưa làm — có thể làm tiếp rồi bấm Nộp bài để gửi điểm mới.`;
+    } else gsHint.style.display = 'none';
+  } else if (submitted > 0) {
+    totalBox.style.display = 'none';
+    gsHint.style.display = 'block';
+    gsHint.textContent = `Đã chấm ${submitted}/${SCORED.length} phần — có thể nộp bài bất cứ lúc nào`;
+  } else {
+    totalBox.style.display = 'none';
+    gsHint.style.display = 'none';
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   NAV
+══════════════════════════════════════════════════════ */
+function showPart(n) {
+  PARTS_LIST.forEach(p => {
+    document.getElementById(`panel-p${p}`).classList.toggle('active', p === n);
+    document.getElementById(`nav-p${p}`).classList.toggle('active', p === n);
+  });
+}
+
+/* ══════════════════════════════════════════════════════
+   NỘP BÀI — kết quả CHỈ hiện sau khi gửi điểm thành công
+══════════════════════════════════════════════════════ */
+function submitAll() {
+  const name = document.getElementById('gs-name').value.trim();
+  const statusEl = document.getElementById('gs-status');
+  const btn = document.getElementById('btn-gs');
+  if (!name) {
+    statusEl.style.color = '#ef4444';
+    statusEl.textContent = '⚠️ Vui lòng nhập tên trước khi nộp bài — kết quả chỉ hiện sau khi gửi điểm cho giáo viên thành công.';
+    return;
+  }
+  if (APPS_SCRIPT_URL === 'PASTE_YOUR_APPS_SCRIPT_URL_HERE') {
+    statusEl.style.color = '#ef4444';
+    statusEl.textContent = '⚠️ Chưa cấu hình Apps Script URL!';
+    return;
+  }
+  btn.disabled = true;
+  btn.textContent = '⏳ Đang nộp...';
+  statusEl.textContent = '';
+
+  const scores = {};
+  let total = 0;
+  SCORED.forEach(p => { const r = computePartScore(p); scores['p'+p] = r.score; total += r.score; });
+
+  sendToSheets(name, scores, total)
+    .then(() => {
+      PARTS_LIST.forEach(p => submitPart(p));
+      btn.disabled = false;
+      btn.textContent = '📝 Nộp bài';
+      statusEl.style.color = 'var(--primary)';
+      statusEl.textContent = '✅ Đã gửi điểm cho giáo viên — kết quả hiện bên dưới. Có thể làm tiếp câu chưa làm rồi nộp lại.';
+      document.getElementById('btn-print').style.display = 'block';
+    })
+    .catch(() => {
+      btn.disabled = false;
+      btn.textContent = '📝 Nộp bài';
+      statusEl.style.color = '#ef4444';
+      statusEl.textContent = '❌ Lỗi kết nối, chưa gửi được điểm — kết quả CHƯA hiện. Bấm "Nộp bài" để thử gửi lại.';
+    });
+}
+
+/* ══════════════════════════════════════════════════════
+   GOOGLE SHEETS SUBMIT — endpoint chung KET (config/programs/ket.json → score_endpoint)
+══════════════════════════════════════════════════════ */
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz2Sxug___PoepWC0HHjH0-cZJ8kJKn27XEVBDN78TOHe8jlFkhEG_wx0-UkBpUhADcyg/exec';
+
+function sendToSheets(name, scores, total) {
+  return fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      studentName: name,
+      test: 'KET Reading – Đề 15 – City living',
+      p1: scores.p1, p2: scores.p2, p3: scores.p3, p4: scores.p4, p5: scores.p5,
+      total: total,
+      outOf: 30
+    })
+  });
+}
+
+/* ══════════════════════════════════════════════════════
+   IN BÀI (chỉ bấm được sau khi nộp bài thành công)
+══════════════════════════════════════════════════════ */
+function printResult() {
+  const nameInput = document.getElementById('gs-name');
+  const name = (nameInput && nameInput.value.trim()) || '(chưa nhập tên)';
+  const header = document.getElementById('print-header');
+  if (header) {
+    const titleParts = [
+      document.querySelector('.sidebar-logo') ? document.querySelector('.sidebar-logo').textContent.trim() : '',
+      document.querySelector('.sidebar-sub') ? document.querySelector('.sidebar-sub').textContent.trim() : ''
+    ].filter(Boolean).join(' — ');
+    header.innerHTML = '';
+    const h1 = document.createElement('h1');
+    h1.textContent = titleParts;
+    const meta = document.createElement('div');
+    meta.className = 'print-meta';
+    const today = new Date().toLocaleDateString('vi-VN');
+    const totalVal = document.getElementById('total-score-value');
+    const totalText = totalVal ? totalVal.textContent : '';
+    meta.textContent = `Học sinh: ${name}   |   Ngày in: ${today}` + (totalText ? `   |   Tổng điểm: ${totalText}` : '');
+    header.appendChild(h1);
+    header.appendChild(meta);
+  }
+  window.print();
+}
+
+/* ══════════════════════════════════════════════════════
+   DARK MODE
+══════════════════════════════════════════════════════ */
+function toggleDark() {
+  const dark = document.body.classList.toggle('dark-theme');
+  localStorage.setItem('theme', dark ? 'dark' : 'light');
+  document.getElementById('theme-btn').textContent = dark ? '☀️' : '🌙';
+}
+
+/* ══════════════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════════════ */
+window.onload = function() {
+  renderAll();
+  updateSidebar();
+  document.getElementById('theme-btn').textContent = document.body.classList.contains('dark-theme') ? '☀️' : '🌙';
+};
+</script>
+</body>
+</html>
